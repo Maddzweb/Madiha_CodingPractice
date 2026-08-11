@@ -1,17 +1,13 @@
-Day 01(04/08/2026): Summary:
+DAY_4
 
-Time complexity - Measures the time taken to run a program depending on the input size.
+Algorithm: Rotten Oranges using BFS
 
-Slowest to fastest order:
+In this problem, we are given a grid containing three types of cells: 0 represents an empty orange. 1 represents a fresh orange. 2 represents a rotten orange. Our goal is to find the minimum number of minutes required for all the fresh oranges to become rotten.
 
-O(2^n) --> Exponential O(n!) --> Factorial O(n^3) --> Cubic O(n^2) --> Square/Quadratic (Outer loop depends on the inner loop of range n.) O(nlogn) --> Logrithmic (Outer loop of range n depends on inner loop of range n/2.) O(n) --> Linear (depends on the range of n.) O(1) --> Constant The Three Notations:
+I will use the concept of BFS (Breadth-First Search) because, the oranges become rotten level by level and each level represents one minute. First, I will go through the complete grid and count the number of fresh oranges. At the same time, whenever I find a rotten orange (2) I will store its position in a queue. Since, there can be more than one rotten orange at the beginning, all the rotten oranges will be added to the queue before starting the BFS.
 
-Upper Bound - This represents the worst case. The algorithm will not grow faster than this rate.
+After that I will start the BFS process by taking the first rotten orange from the queue. I will check its four neighbouring cells: up, down, left, and right. If any of these neighbouring cells contains a fresh orange (1) that orange will become rotten. I will change its value from 1 to 2 decrease the count of fresh oranges and add its position to the queue. The newly rotten oranges are then processed in the same way.
 
-Lower Bound - This represents the best case. The algorithm will not grow slower than this rate.
+Once all the currently rotten oranges have been processed the newly rotten oranges will be processed in the next round. This represents one minute passing. I will continue this process until the queue becomes empty. In this way, BFS spreads the rotten oranges through the grid level by level, just like the rot spreading from one orange to its neighbouring oranges.
 
-Tight Bond - This represents the constant. The algorithm grows exactly at that rate.
-
-Steps to find the time complexity from a code:
-
-Drop/Remove Constants. Keep the Dominant Term. Nested Loops Multiply.
+Finally, I will check whether any fresh oranges are still left. If there are fresh oranges remaining it means they could not be reached by any rotten orange, so the answer will be -1. If there are no fresh oranges left. I will return the total number of minutes taken to make all the fresh oranges rotten.
